@@ -1,23 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
-
+import axios from "axios";
+import React from "react";
 function App() {
+  var[data,setData]=React.useState("")
+  function generate(){
+    axios.get("https://api.quotable.io/random").then((res)=>{
+      console.log(res.data)
+      setData({...res.data})
+    })
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <div className="container">
+          <h5>{data.content}</h5>
+          <h6 id="author">{data.author}</h6>
+        <button onClick={generate}>Generate quote</button>
+      </div>
     </div>
   );
 }
